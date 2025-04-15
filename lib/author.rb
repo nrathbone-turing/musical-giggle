@@ -16,8 +16,10 @@ class Author
       :title => title,
       :publication_date => publication_date
     })
-    
+    # had to add the shovel here to get it working, want to discuss why later though
+    @books << new_book
     new_book
+    
   end
 
 end
