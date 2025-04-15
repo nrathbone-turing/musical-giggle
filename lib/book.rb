@@ -8,4 +8,9 @@ class Book
     @publication_year = book[:publication_date][-4..-1]
   end
 
+  def to_s
+    @title
+  end
+
+
 end
