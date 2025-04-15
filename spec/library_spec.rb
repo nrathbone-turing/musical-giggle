@@ -57,24 +57,37 @@ RSpec.describe Library do
 
     before(:each) do
       @charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
-      @jane_eyre = charlotte_bronte.write("Jane Eyre", "October 16, 1847")    
-      @professor = charlotte_bronte.write("The Professor", "1857")
-      @villette = charlotte_bronte.write("Villette", "1853")
+      @jane_eyre = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")    
+      @professor = @charlotte_bronte.write("The Professor", "1857")
+      @villette = @charlotte_bronte.write("Villette", "1853")
     
       @harper_lee = Author.new({first_name: "Harper", last_name: "Lee"})
-      @mockingbird = harper_lee.write("To Kill a Mockingbird", "July 11, 1960")
+      @mockingbird = @harper_lee.write("To Kill a Mockingbird", "July 11, 1960")
+
+      @dpl.add_author(@charlotte_bronte)
+      @dpl.add_author(@harper_lee)
     end
 
     it 'returns a key/value pair for the earliest publication year of an authors books' do
-      expect(@dpl.publication_time_frame(@charlotte_bronte[:start])).to eq("1847")
+      expected_output = @dpl.publication_time_frame(@charlotte_bronte)
+      expect(expected_output[:start]).to eq("1847")
+
+      expected_output = @dpl.publication_time_frame(@harper_lee)
+      expect(expected_output[:start]).to eq("1960")
+
     end
 
     it 'returns a key/value pair for the latest publication year of an authors books' do
-      expect(@dpl.publication_time_frame(@charlotte_bronte[:end])).to eq("1857")
+      expected_output = @dpl.publication_time_frame(@charlotte_bronte)
+      expect(expected_output[:end]).to eq("1857")
+
+      expected_output = @dpl.publication_time_frame(@harper_lee)
+      expect(expected_output[:end]).to eq("1960")
     end
 
     it 'returns a hash with both of the key/value pairs which points to the first and last publication years for an author' do
-      expect(@dpl.publication_time_frame).to eq({:start=>"1847", :end=>"1857"})
+      expect(@dpl.publication_time_frame(@charlotte_bronte)).to eq({:start=>"1847", :end=>"1857"})
+      expect(@dpl.publication_time_frame(@harper_lee)).to eq({:start=>"1960", :end=>"1960"})
     end
   end
 

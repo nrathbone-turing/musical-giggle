@@ -14,7 +14,11 @@ class Library
   end
 
   def publication_time_frame(author)
-
+    publication_years = author.books.map { |book| book.publication_year }
+    
+    {:start => publication_years.min,
+    :end => publication_years.max
+    }
   end
 
   def checkout(book)
