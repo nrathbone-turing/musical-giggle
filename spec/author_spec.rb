@@ -24,6 +24,7 @@ RSpec.describe Author do
   it 'can write a book and return a Book object' do
     jane_eyre = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")
 
+    expect(jane_eyre).to be_a(Book)
     expect(jane_eyre.class).to eq(Book)
     expect(jane_eyre.title).to eq("Jane Eyre")
     expect(jane_eyre.publication_year).to eq("1847")
@@ -31,10 +32,10 @@ RSpec.describe Author do
   end
 
   it 'adds written books to the author book list' do
-    book1 = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")
-    book2 = @charlotte_bronte.write("Villette", "1853")
+    jane_eyre = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")
+    villette = @charlotte_bronte.write("Villette", "1853")
 
-    expect(@charlotte_bronte.books).to eq([book1, book2])
+    expect(@charlotte_bronte.books).to eq([jane_eyre, villette])
   end
 
 
