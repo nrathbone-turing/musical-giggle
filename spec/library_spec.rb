@@ -148,7 +148,7 @@ RSpec.describe Library do
     
       @dpl.return(book)
       
-      expect(@dpl.checked_out_books).to not_include(book)
+      expect(@dpl.checked_out_books).not_to include(book)
     end
     
     it 'returns an error message when trying to return a book that was never checked out' do
