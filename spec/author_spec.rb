@@ -30,7 +30,7 @@ RSpec.describe Author do
    
   end
 
-  it 'adds written books to the author\'s book list' do
+  it 'adds written books to the author book list' do
     book1 = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")
     book2 = @charlotte_bronte.write("Villette", "1853")
 
