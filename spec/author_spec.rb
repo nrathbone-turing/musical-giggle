@@ -3,26 +3,39 @@ require 'pry'
 require './lib/book'
 require './lib/author'
 
-pry(main)> charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
-#=> #<Author:0x00007fb898081850...>
+RSpec.describe Author do
 
-pry(main)> charlotte_bronte.name
-#=> "Charlotte Bronte"
+  before(:each) do
+    @charlotte_bronte= Author.new({first_name: "Charlotte", last_name: "Bronte"})
+  end
 
-pry(main)> charlotte_bronte.books
-#=> []
+  it 'exists' do
+    expect(@charlotte_bronte).to be_an_instance_of(Author)
+  end
 
-pry(main)> jane_eyre = charlotte_bronte.write("Jane Eyre", "October 16, 1847")
-#=> #<Book:0x00007fb896e22538...>
+  it 'has a name' do
+    expect(@charlotte_bronte.name).to eq("Charlotte Bronte")
+  end
 
-pry(main)> jane_eyre.class
-#=> Book
+  it 'starts with no books' do
+    expect(@charlotte_bronte.books).to eq([])
+  end
 
-pry(main)> jane_eyre.title
-#=> "Jane Eyre"
+  it 'can write a book and return a Book object' do
+    jane_eyre = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")
 
-pry(main)> villette = charlotte_bronte.write("Villette", "1853")
-#=> #<Book:0x00007fb8980aaca0...>
+    expect(jane_eyre.class).to eq(Book)
+    expect(jane_eyre.title).to eq("Jane Eyre")
+    expect(jane_eyre.publication_year).to eq("1847")
+   
+  end
 
-pry(main)> charlotte_bronte.books
-#=> [#<Book:0x00007fb896e22538...>, #<Book:0x00007fb8980aaca0...>]
+  it 'adds written books to the author\'s book list' do
+    book1 = @charlotte_bronte.write("Jane Eyre", "October 16, 1847")
+    book2 = @charlotte_bronte.write("Villette", "1853")
+
+    expect(@charlotte_bronte.books).to eq([book1, book2])
+  end
+
+
+end
